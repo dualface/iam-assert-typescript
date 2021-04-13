@@ -146,10 +146,15 @@ export function checkMixed(
     }
 
     // 基本类型
+    const vt = typeof val;
     if (type === "string") {
-        return [true];
-    } else if (typeof val !== type) {
-        return [false, `expected is ${type}, actual is ${typeof val}`];
+        if (vt === "string" || vt === "number" || vt === "boolean") {
+            return [true];
+        } else {
+            return [false, `expected is ${type}, actual is ${vt}`];
+        }
+    } else if (vt !== type) {
+        return [false, `expected is ${type}, actual is ${vt}`];
     }
     return [true];
 }
